@@ -74,7 +74,7 @@
             this.nmBatchSize.Size = new System.Drawing.Size(120, 20);
             this.nmBatchSize.TabIndex = 3;
             this.nmBatchSize.Value = new decimal(new int[] {
-            100,
+            200,
             0,
             0,
             0});

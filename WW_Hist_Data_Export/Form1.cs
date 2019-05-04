@@ -106,7 +106,7 @@ namespace WW_Hist_Data_Export
                         da_results.Fill(dt_Results);
                         iCount = dt_Results.Rows.Count;
 
-                        StreamWriter csv = new StreamWriter(this.txtDirectory.Text + "\\"+ iIndex.ToString("X5") + iYear.ToString() + iMonth.ToString("X2") + ".csv");
+                        StreamWriter csv = new StreamWriter(this.txtDirectory.Text + "\\"+ iIndex.ToString("X5") + iYear.ToString() + iMonth.ToString("X2") + ".csv",false);
 
                         csv.WriteLine("DateTime," + szList);
                          foreach (DataRow ResultRow in dt_Results.Rows)

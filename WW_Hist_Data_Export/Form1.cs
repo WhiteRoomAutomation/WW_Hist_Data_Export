@@ -33,7 +33,7 @@ namespace WW_Hist_Data_Export
             string szSQLConnectionInfo;
             szSQLConnectionInfo = "Data Source=localhost;Initial Catalog=Runtime;Trusted_Connection=true";
             sql_connection = new SqlConnection(szSQLConnectionInfo);
-            sql_command = new SqlCommand("SELECT [TagName] FROM[dbo].[Tag] where[TagName] not like 'sys%'", sql_connection);
+            sql_command = new SqlCommand("SELECT [TagName] FROM[dbo].[Tag] where TagType <> 5", sql_connection);
             sql_command.CommandType = CommandType.Text;
             SqlDataAdapter da = new SqlDataAdapter(sql_command);
             da.Fill(dt);
@@ -50,12 +50,59 @@ namespace WW_Hist_Data_Export
                 iIndex = iIndex + 1;
                 if (iIndex == 100)
                 {
+                    szTagList = szTagList.TrimEnd(',');
                     szTagLists.Add(szTagList);
+
                     szTagList = "";
                     iIndex = 0;
                 }
 
 
+            }
+
+            foreach (string szList in szTagLists)
+            {
+
+                SqlConnection sql_connection_results;
+
+                SqlCommand sql_command_results;
+                DataTable dt_Results = new DataTable();
+                string szSQLConnectionInfo_results;
+                szSQLConnectionInfo_results = "Data Source=localhost;Initial Catalog=Runtime;Trusted_Connection=true";
+                sql_connection_results = new SqlConnection(szSQLConnectionInfo_results);
+                string szQuery;
+
+                szQuery = "SET QUOTED_IDENTIFIER OFF SELECT DateTime," + szList;
+                szQuery = szQuery + " FROM OPENQUERY(INSQL, \"SELECT DateTime = convert(nvarchar, DateTime, 21), ";
+                szQuery = szQuery + szList + " FROM WideHistory WHERE wwRetrievalMode = 'Cyclic' AND wwResolution = 60000 AND wwQualityRule = 'Extended' AND wwVersion = 'Latest' AND DateTime >= ";
+
+                for (int iYear = 2017; iYear <= 2019; iYear ++)
+                {
+                    for(int  iMonth = 1; iMonth <=12; iMonth ++)
+                    {
+                        DateTime dtStart = new DateTime(iYear,iMonth,1);
+                        DateTime dtEnd;
+                        dtEnd = dtStart.AddMonths(1).AddSeconds(-1);
+
+
+                        szQuery = szQuery + "'" + dtStart.ToString() + "'";
+                        szQuery = szQuery + " AND DateTime <= ";
+                        szQuery = szQuery + "'" + dtEnd.ToString() + "'" + "\")";
+                        Debug.Write(szQuery);
+                        sql_command_results = new SqlCommand(szQuery, sql_connection_results);
+                        sql_command_results.CommandType = CommandType.Text;
+                        SqlDataAdapter da_results = new SqlDataAdapter(sql_command_results);
+                        da_results.Fill(dt_Results);
+                        iCount = dt_Results.Rows.Count;
+                    }
+                }
+                
+                
+                
+              
+
+
+                
             }
         }
        

@@ -48,7 +48,7 @@ namespace WW_Hist_Data_Export
             {
                 szTagList = szTagList +  "[" + row[0].ToString() + "],";
                 iIndex = iIndex + 1;
-                if (iIndex == 100)
+                if (iIndex == nmBatchSize.Value)
                 {
                     szTagList = szTagList.TrimEnd(',');
                     szTagLists.Add(szTagList);
@@ -60,26 +60,37 @@ namespace WW_Hist_Data_Export
 
             }
 
+            if (szTagList != "")
+            {
+                szTagList = szTagList.TrimEnd(',');
+                szTagLists.Add(szTagList);
+
+                szTagList = "";
+            }
+
+            iIndex = 0;
             foreach (string szList in szTagLists)
             {
 
                 SqlConnection sql_connection_results;
-
-                SqlCommand sql_command_results;
-                DataTable dt_Results = new DataTable();
                 string szSQLConnectionInfo_results;
                 szSQLConnectionInfo_results = "Data Source=localhost;Initial Catalog=Runtime;Trusted_Connection=true";
                 sql_connection_results = new SqlConnection(szSQLConnectionInfo_results);
-                string szQuery;
-
-                szQuery = "SET QUOTED_IDENTIFIER OFF SELECT DateTime," + szList;
-                szQuery = szQuery + " FROM OPENQUERY(INSQL, \"SELECT DateTime = convert(nvarchar, DateTime, 21), ";
-                szQuery = szQuery + szList + " FROM WideHistory WHERE wwRetrievalMode = 'Cyclic' AND wwResolution = 60000 AND wwQualityRule = 'Extended' AND wwVersion = 'Latest' AND DateTime >= ";
+               
 
                 for (int iYear = 2017; iYear <= 2019; iYear ++)
                 {
                     for(int  iMonth = 1; iMonth <=12; iMonth ++)
                     {
+                        string szQuery = "";
+                        
+
+                        SqlCommand sql_command_results;
+                        DataTable dt_Results = new DataTable();
+                        szQuery = "SET QUOTED_IDENTIFIER OFF SELECT DateTime," + szList;
+                        szQuery = szQuery + " FROM OPENQUERY(INSQL, \"SELECT DateTime = convert(nvarchar, DateTime, 21), ";
+                        szQuery = szQuery + szList + " FROM WideHistory WHERE wwRetrievalMode = 'Cyclic' AND wwResolution = 60000 AND wwQualityRule = 'Extended' AND wwVersion = 'Latest' AND DateTime >= ";
+                        iIndex = 1;
                         DateTime dtStart = new DateTime(iYear,iMonth,1);
                         DateTime dtEnd;
                         dtEnd = dtStart.AddMonths(1).AddSeconds(-1);
@@ -94,6 +105,28 @@ namespace WW_Hist_Data_Export
                         SqlDataAdapter da_results = new SqlDataAdapter(sql_command_results);
                         da_results.Fill(dt_Results);
                         iCount = dt_Results.Rows.Count;
+
+                        StreamWriter csv = new StreamWriter(this.txtDirectory.Text + "\\"+ iIndex.ToString("X5") + iYear.ToString() + iMonth.ToString("X2") + ".csv");
+
+                        csv.WriteLine("DateTime," + szList);
+                         foreach (DataRow ResultRow in dt_Results.Rows)
+                        {
+                            string szLine = "";
+                            foreach (object cell in ResultRow.ItemArray)
+                            {
+                                string szData = cell.ToString();
+                                if (szData == "")
+                                {
+                                    szData = "NULL";
+                                }
+                                szLine = szLine + szData + ",";
+                            }
+                            szLine = szLine.TrimEnd(',');
+                            csv.WriteLine(szLine);
+
+                        }
+                        csv.Close();
+
                     }
                 }
                 
@@ -105,6 +138,19 @@ namespace WW_Hist_Data_Export
                 
             }
         }
-       
+
+        private void BtnBrowse_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+               this.txtDirectory.Text = folderBrowserDialog1.SelectedPath;
+            }
+        }
+
+        private void NmBatchSize_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

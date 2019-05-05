@@ -6,9 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WW_Hist_Data_Export", "WW_Hist_Data_Export.csproj", "{34D9C1BF-14C3-4F41-B544-DC66F27E9E3D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4DB7D143-C84D-45E3-B3CC-63D11CCA686F}"
-	ProjectSection(SolutionItems) = preProject
-		..\NuGet.Config = ..\NuGet.Config
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

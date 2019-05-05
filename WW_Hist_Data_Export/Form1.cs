@@ -106,24 +106,29 @@ namespace WW_Hist_Data_Export
 						DataTable dt_Results = new DataTable();
 						try
 						{
-						szQuery = "SET QUOTED_IDENTIFIER OFF SELECT DateTime," + szList;
-						szQuery = szQuery + " FROM OPENQUERY(INSQL, \"SELECT DateTime = convert(nvarchar, DateTime, 21), ";
-						szQuery = szQuery + szList + " FROM WideHistory WHERE wwRetrievalMode = 'Cyclic' AND wwResolution = 60000 AND wwQualityRule = 'Extended' AND wwVersion = 'Latest' AND DateTime >= ";
-						iIndex = 1;
-						DateTime dtStart = new DateTime(iYear,iMonth,1);
-						DateTime dtEnd;
-						dtEnd = dtStart.AddMonths(1).AddSeconds(-1);
+						    szQuery = "SET QUOTED_IDENTIFIER OFF SELECT DateTime," + szList;
+						    szQuery = szQuery + " FROM OPENQUERY(INSQL, \"SELECT DateTime = convert(nvarchar, DateTime, 21), ";
+						    szQuery = szQuery + szList + " FROM WideHistory WHERE wwRetrievalMode = 'Cyclic' AND wwResolution = 60000 AND wwQualityRule = 'Extended' AND wwVersion = 'Latest' AND DateTime >= ";
+						    iIndex = 1;
+						    DateTime dtStart = new DateTime(iYear,iMonth,1);
+						    DateTime dtEnd;
+						    dtEnd = dtStart.AddMonths(1).AddSeconds(-1);
 
 
-						szQuery = szQuery + "'" + dtStart.ToString() + "'";
-						szQuery = szQuery + " AND DateTime <= ";
-						szQuery = szQuery + "'" + dtEnd.ToString() + "'" + "\")";
-						Debug.Write(szQuery);
-						sql_command_results = new SqlCommand(szQuery, sql_connection_results);
-						sql_command_results.CommandType = CommandType.Text;
-						SqlDataAdapter da_results = new SqlDataAdapter(sql_command_results);
-						da_results.Fill(dt_Results);
-						iCount = dt_Results.Rows.Count;
+						    szQuery = szQuery + "'" + dtStart.ToString() + "'";
+						    szQuery = szQuery + " AND DateTime <= ";
+						    szQuery = szQuery + "'" + dtEnd.ToString() + "'" + "\")";
+						    Debug.Write(szQuery);
+						    sql_command_results = new SqlCommand(szQuery, sql_connection_results);
+						    sql_command_results.CommandType = CommandType.Text;
+						    SqlDataAdapter da_results = new SqlDataAdapter(sql_command_results);
+						    da_results.Fill(dt_Results);
+
+
+						    iCount = dt_Results.Rows.Count;
+                            logger.Info("Completed query for taglist Number: {0} Month: {1} Year: {2}", iIndex, iMonth, iYear);
+                            logger.Info("{0} Rows Returned", iCount);
+                            logger.Info(szQuery);
 
 						}
 						catch (Exception exHistory)
@@ -162,6 +167,7 @@ namespace WW_Hist_Data_Export
 							}
 							szLine = szLine.TrimEnd(',');
 							csv.WriteLine(szLine);
+                            logger.Info("Wrote results for index {0},iIndex");
 
 								}
 								catch (Exception exCSVWrite)

@@ -32,6 +32,13 @@
             this.txtDirectory = new System.Windows.Forms.TextBox();
             this.btnBrowse = new System.Windows.Forms.Button();
             this.nmBatchSize = new System.Windows.Forms.NumericUpDown();
+            this.lblFolder = new System.Windows.Forms.Label();
+            this.lblBatchSize = new System.Windows.Forms.Label();
+            this.lblStart = new System.Windows.Forms.Label();
+            this.dtpStart = new System.Windows.Forms.DateTimePicker();
+            this.dtpEnd = new System.Windows.Forms.DateTimePicker();
+            this.lblEnd = new System.Windows.Forms.Label();
+            this.chkSystemTags = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nmBatchSize)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,7 +71,7 @@
             // 
             // nmBatchSize
             // 
-            this.nmBatchSize.Location = new System.Drawing.Point(28, 74);
+            this.nmBatchSize.Location = new System.Drawing.Point(28, 67);
             this.nmBatchSize.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -80,11 +87,78 @@
             0});
             this.nmBatchSize.ValueChanged += new System.EventHandler(this.NmBatchSize_ValueChanged);
             // 
+            // lblFolder
+            // 
+            this.lblFolder.AutoSize = true;
+            this.lblFolder.Location = new System.Drawing.Point(25, 96);
+            this.lblFolder.Name = "lblFolder";
+            this.lblFolder.Size = new System.Drawing.Size(61, 13);
+            this.lblFolder.TabIndex = 4;
+            this.lblFolder.Text = "Folder Path";
+            // 
+            // lblBatchSize
+            // 
+            this.lblBatchSize.AutoSize = true;
+            this.lblBatchSize.Location = new System.Drawing.Point(25, 51);
+            this.lblBatchSize.Name = "lblBatchSize";
+            this.lblBatchSize.Size = new System.Drawing.Size(80, 13);
+            this.lblBatchSize.TabIndex = 5;
+            this.lblBatchSize.Text = "Tags per Batch";
+            // 
+            // lblStart
+            // 
+            this.lblStart.AutoSize = true;
+            this.lblStart.Location = new System.Drawing.Point(234, 51);
+            this.lblStart.Name = "lblStart";
+            this.lblStart.Size = new System.Drawing.Size(55, 13);
+            this.lblStart.TabIndex = 6;
+            this.lblStart.Text = "Start Date";
+            // 
+            // dtpStart
+            // 
+            this.dtpStart.Location = new System.Drawing.Point(237, 67);
+            this.dtpStart.Name = "dtpStart";
+            this.dtpStart.Size = new System.Drawing.Size(200, 20);
+            this.dtpStart.TabIndex = 7;
+            // 
+            // dtpEnd
+            // 
+            this.dtpEnd.Location = new System.Drawing.Point(464, 67);
+            this.dtpEnd.Name = "dtpEnd";
+            this.dtpEnd.Size = new System.Drawing.Size(200, 20);
+            this.dtpEnd.TabIndex = 9;
+            // 
+            // lblEnd
+            // 
+            this.lblEnd.AutoSize = true;
+            this.lblEnd.Location = new System.Drawing.Point(461, 51);
+            this.lblEnd.Name = "lblEnd";
+            this.lblEnd.Size = new System.Drawing.Size(52, 13);
+            this.lblEnd.TabIndex = 8;
+            this.lblEnd.Text = "End Date";
+            // 
+            // chkSystemTags
+            // 
+            this.chkSystemTags.AutoSize = true;
+            this.chkSystemTags.Location = new System.Drawing.Point(670, 67);
+            this.chkSystemTags.Name = "chkSystemTags";
+            this.chkSystemTags.Size = new System.Drawing.Size(115, 17);
+            this.chkSystemTags.TabIndex = 11;
+            this.chkSystemTags.Text = "Allow System Tags";
+            this.chkSystemTags.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.chkSystemTags);
+            this.Controls.Add(this.dtpEnd);
+            this.Controls.Add(this.lblEnd);
+            this.Controls.Add(this.dtpStart);
+            this.Controls.Add(this.lblStart);
+            this.Controls.Add(this.lblBatchSize);
+            this.Controls.Add(this.lblFolder);
             this.Controls.Add(this.nmBatchSize);
             this.Controls.Add(this.btnBrowse);
             this.Controls.Add(this.txtDirectory);
@@ -103,6 +177,13 @@
         private System.Windows.Forms.TextBox txtDirectory;
         private System.Windows.Forms.Button btnBrowse;
         private System.Windows.Forms.NumericUpDown nmBatchSize;
+        private System.Windows.Forms.Label lblFolder;
+        private System.Windows.Forms.Label lblBatchSize;
+        private System.Windows.Forms.Label lblStart;
+        private System.Windows.Forms.DateTimePicker dtpStart;
+        private System.Windows.Forms.DateTimePicker dtpEnd;
+        private System.Windows.Forms.Label lblEnd;
+        private System.Windows.Forms.CheckBox chkSystemTags;
     }
 }
 

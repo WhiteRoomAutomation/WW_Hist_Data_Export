@@ -39,6 +39,10 @@
             this.dtpEnd = new System.Windows.Forms.DateTimePicker();
             this.lblEnd = new System.Windows.Forms.Label();
             this.chkSystemTags = new System.Windows.Forms.CheckBox();
+            this.lblIndexLabel = new System.Windows.Forms.Label();
+            this.lblIndex = new System.Windows.Forms.Label();
+            this.lblProcessing = new System.Windows.Forms.Label();
+            this.lblDate = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nmBatchSize)).BeginInit();
             this.SuspendLayout();
             // 
@@ -147,11 +151,53 @@
             this.chkSystemTags.Text = "Allow System Tags";
             this.chkSystemTags.UseVisualStyleBackColor = true;
             // 
+            // lblIndexLabel
+            // 
+            this.lblIndexLabel.AutoSize = true;
+            this.lblIndexLabel.Location = new System.Drawing.Point(475, 162);
+            this.lblIndexLabel.Name = "lblIndexLabel";
+            this.lblIndexLabel.Size = new System.Drawing.Size(33, 13);
+            this.lblIndexLabel.TabIndex = 12;
+            this.lblIndexLabel.Text = "Index";
+            // 
+            // lblIndex
+            // 
+            this.lblIndex.AutoSize = true;
+            this.lblIndex.Location = new System.Drawing.Point(516, 162);
+            this.lblIndex.Name = "lblIndex";
+            this.lblIndex.Size = new System.Drawing.Size(35, 13);
+            this.lblIndex.TabIndex = 13;
+            this.lblIndex.Text = "label2";
+            // 
+            // lblProcessing
+            // 
+            this.lblProcessing.AutoSize = true;
+            this.lblProcessing.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblProcessing.Location = new System.Drawing.Point(27, 160);
+            this.lblProcessing.Name = "lblProcessing";
+            this.lblProcessing.Size = new System.Drawing.Size(350, 73);
+            this.lblProcessing.TabIndex = 17;
+            this.lblProcessing.Text = "Processing";
+            this.lblProcessing.Visible = false;
+            // 
+            // lblDate
+            // 
+            this.lblDate.AutoSize = true;
+            this.lblDate.Location = new System.Drawing.Point(478, 179);
+            this.lblDate.Name = "lblDate";
+            this.lblDate.Size = new System.Drawing.Size(92, 13);
+            this.lblDate.TabIndex = 18;
+            this.lblDate.Text = "xxxx-xx-xx xx:xx:xx";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.lblDate);
+            this.Controls.Add(this.lblProcessing);
+            this.Controls.Add(this.lblIndex);
+            this.Controls.Add(this.lblIndexLabel);
             this.Controls.Add(this.chkSystemTags);
             this.Controls.Add(this.dtpEnd);
             this.Controls.Add(this.lblEnd);
@@ -165,6 +211,7 @@
             this.Controls.Add(this.btnExport);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Form1_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nmBatchSize)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -184,6 +231,10 @@
         private System.Windows.Forms.DateTimePicker dtpEnd;
         private System.Windows.Forms.Label lblEnd;
         private System.Windows.Forms.CheckBox chkSystemTags;
+        private System.Windows.Forms.Label lblIndexLabel;
+        private System.Windows.Forms.Label lblIndex;
+        private System.Windows.Forms.Label lblProcessing;
+        private System.Windows.Forms.Label lblDate;
     }
 }
 
